@@ -1,3 +1,4 @@
+
 var screen=0;
 let images = [];
 let selectedImage = -1;
@@ -5,7 +6,6 @@ let imageSize = 60;
 let xOffset = 0.0;
 let yOffset = 0.0;
 let correctChoices = 0;
-//let rectLocked = [];
 let gColorX = 600; // X-coordinate at which color changes
 let gColorY = 100;
 let rColorY = 200;
@@ -37,8 +37,12 @@ function preload(){
  veggies5= loadImage("images/veggies_4.png");
  veggies6= loadImage("images/veggies_5.png");
  veggiesscreen= loadImage("images/Sorting_Vegetables.png");
+ greenBasket = loadImage("images/greenBasket.png");
+ redBasket = loadImage("images/redBasket.png");
+ restart = loadImage("images/restart.png");
+ goodJob = loadImage("images/good_job.png");
+ cloud = loadImage("images/cloud.png");
  b1=loadImage("images/basket.png");
- b2=loadImage("images/basket.png");
  wrongVeggie = loadImage("images/wrongVeggie.png");
  rightVeggie = loadImage("images/correctVeggie.png");
 
@@ -241,10 +245,9 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
    // Display the elapsed time when all vegetables are correctly placed
    if (allCorrect) {
      fill(0); // Set text color to black
-     textSize(20);
-     text(`Time: ${Math.floor(elapsedTime / 1000)} seconds`, 200, 320);
-     
-    
+     textSize(15);
+     image(cloud,30,250,230,180);
+     text(`Time: ${Math.floor(elapsedTime / 1000)} seconds`, 60, 350);
    }
   allCorrect = true; // Assume all vegetables are in the correct place
 
@@ -252,12 +255,12 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
     let inGreen = images[i].x > gColorX - 20 &&
       images[i].x < gColorX + 120 &&
       images[i].y > gColorY - 20 &&
-      images[i].y < gColorY + 120 &&
+      images[i].y < gColorY + 80 &&
       !images[i].pickedRight;
 
     let inRed = images[i].x > gColorX - 20 &&
       images[i].x < gColorX + 120 &&
-      images[i].y > rColorY - 20 &&
+      images[i].y > rColorY +20&&
       images[i].y < rColorY + 120 &&
       !images[i].pickedRight;
 
@@ -269,7 +272,9 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
       images[i].pickedRight = true;
       correctChoices++;
       correctMessage = "Correct!";
+      correctNoise.play();
     } else if (inGreen && images[i].rg == "r") {
+      wrongNoise.play();
       images[i].tryAgain = true;
       allCorrect = false; // At least one vegetable is in the wrong place
     }
@@ -282,7 +287,9 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
       images[i].pickedRight = true;
       correctChoices++;
       correctMessage = "Correct!";
+      correctNoise.play();
     } else if (inRed && images[i].rg == "g") {
+      wrongNoise.play();
       images[i].tryAgain = true;
       allCorrect = false; // At least one vegetable is in the wrong place
     }
@@ -292,21 +299,22 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
     }
   }
 
-  text("green basket", 600, 80);
+  
   image(b1, 600, 100, 100, 100);
+  image(greenBasket, 615, 150, 65, 40);
 
-  text("red basket", 600, 230);
-  image(b2, 600, 250, 100, 100);
+
+  image(b1, 600, 250, 100, 100);
+  image(redBasket,615,300,65,40);
 
   for (let i = 0; i < images.length; i++) {
     if (images[i].tryAgain) {
-      
+      //wrongNoise.play();
       fill(255, 0, 0);
      // text("Try again...", 500, 200);
       image(wrongVeggie, 500, 130, 100,100);
 
       images[i].tryAgain = false;
-      wrongNoise.play();
     }
   }
 
@@ -314,8 +322,8 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
   //text(correctMessage, 500, 200);
   // Clear the "Correct!" message after a delay
   if (correctMessage === "Correct!") {
+   //correctNoise.play();
   image(rightVeggie, 500,170,100,100);
-   correctNoise.play();
     setTimeout(function () {
       correctMessage = "";
     }, 1000); // Adjust the duration (in milliseconds) as needed
@@ -325,19 +333,16 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
   // If all vegetables are in the correct place, display "Good Job!"
   if (allCorrect && correctChoices === images.length) {
     fill(0, 255, 0);
-    text("Good Job!", 350, 200);
+    image(goodJob, 250, 150,200,150);
     fill(0); // Set text color to black
     textSize(20);
-    text("Time: " + Math.floor(elapsedTime / 1000) + " seconds", 350, 240);
+   // text("Time: " + Math.floor(elapsedTime / 1000) + " seconds", 350, 240);
     
-    // Display a restart button
-    fill(255);
-    rect(390, 280, 100, 40);
-    fill(0);
-    text("Restart", 360, 290);
+    //restart
+    image(restart,330,320,150,90);
 
     // Check if the restart button is clicked
-    if (mouseIsPressed && mouseX >= 360 && mouseX <= 490 && mouseY >= 280 && mouseY <= 320) {
+    if (mouseIsPressed && mouseX >= 330 && mouseX <= 480 && mouseY >= 320 && mouseY <= 410) {
       resetVeggies();
     }
 
@@ -366,7 +371,6 @@ for (let i = 0; i < images.length; i++) {
   images[i].y = images[i].initialY;
   images[i].pickedRight = false;
   images[i].canMove = true;
-}
   }
 
  
