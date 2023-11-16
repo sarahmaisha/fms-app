@@ -1,4 +1,17 @@
 
+const cursorImage = new Image();
+cursorImage.src = 'images/hand.png';
+cursorImage.width = 40;
+cursorImage.height = 40;
+cursorImage.style.position = 'absolute';
+cursorImage.style.pointerEvents = 'none';
+document.body.appendChild(cursorImage);
+document.body.style.cursor = 'none';
+
+document.onmousemove = (e) => {
+    cursorImage.style.left = e.pageX - cursorImage.width / 2 + 'px';
+    cursorImage.style.top = e.pageY - cursorImage.height / 2 + 'px';
+};
 
 var screen=0;
 let images = [];
@@ -20,7 +33,7 @@ let isTiming = false;
 let gameCompleted = false;
 let isDrawing=false;
 let greenCounter = 0;
-
+let hand;
 function preload(){
  // load images
  //hand=loadImage("images/hand.png");
@@ -32,7 +45,7 @@ function preload(){
  sortVeggies = loadImage("images/image-4.png");
  returnToMenu = loadImage("images/return.png");
  cutThePizza = loadImage("images/CutThePizza.png");
- //washTheDishes = loadImage("images/WashDishes.png");
+ washTheDishes = loadImage("images/WashDishes.png");
  dishscreen= loadImage("images/WashTheDishes.png");
  veggies1= loadImage("images/veggies_0.png");
  veggies2= loadImage("images/veggies_1.png");
@@ -82,6 +95,9 @@ images.push({img: veggies6, initialX: 300, initialY: 200, x: 300, y: 200,
 function setup() {
  createCanvas(800, 400);
  startTime = millis();
+ strokeWeight(0);
+ 
+
  strokeWeight(20);
  noFill();
  /*for (let i = 0; i < 6; i++) {
@@ -98,7 +114,6 @@ function setup() {
 }
 
 function draw(){
- 
  if (screen==0){
    menuscreen();
  }
@@ -110,10 +125,16 @@ function draw(){
  }
  else if (screen==3){
    veggies();
+  
  }
  else if (screen==4){
    cutPizza();
  }
+ else  {
+ 
+  strokeWeight(20);
+  cursorImage.src = 'images/sponge.png';
+  noFill();
  else if (isDrawing){
   background(dishscreen);
   const distance = dist(mouseX, mouseY, 220, 220);
@@ -136,6 +157,16 @@ function draw(){
     fill(0);
     text("Good job!", width / 2, height / 2);
   }
+  if(mouseIsPressed==true&& mouseX>=0&&mouseX<=50&&mouseY>=90&&mouseY<=200){
+    selectgame();
+  }
+  if(mouseIsPressed==true&& mouseX>=0&&mouseX<=50&&mouseY>=0&&mouseY<=70){
+   settingsmenu();
+ }
+}
+
+}
+
 }
 
 }
@@ -169,6 +200,7 @@ function draw(){
       images[selectedImage].x = mouseX - xOffset;
       images[selectedImage].y = mouseY - yOffset;
     }
+    }
   }
   
  }
@@ -185,6 +217,7 @@ function draw(){
 
 
  function menuscreen() {
+  cursorImage.src = 'images/hand.png';
  background('wheat');
  textSize(50);
  fill('maroon');
@@ -205,6 +238,7 @@ function draw(){
  }
   }
  function settingsscreen(){
+  cursorImage.src = 'images/hand.png';
     background('wheat');
  textSize(50);
  fill('maroon');
@@ -215,6 +249,7 @@ function draw(){
  }
  }
   function selectscreen(){
+    cursorImage.src = 'images/hand.png';
  background('wheat');
  textSize(25);
  fill('maroon');
@@ -249,6 +284,8 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
   
  }
  function veggies() {
+  cursorImage.src = 'images/hand.png';
+  strokeWeight(0);
   background(veggiesscreen);
     // ...
 
@@ -446,6 +483,8 @@ for (let i = 0; i < images.length; i++) {
  function washing(){
    screen=5;
  }
+
+ 
  
 
 
