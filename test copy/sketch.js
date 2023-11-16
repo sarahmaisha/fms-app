@@ -36,7 +36,7 @@ let greenCounter = 0;
 let hand;
 function preload(){
  // load images
- //hand=loadImage("images/hand.png");
+hand=loadImage("images/hand.png");
  correctNoise = loadSound("noise/ding.mp3");
  wrongNoise = loadSound("noise/wrong.mp3");
  title = loadImage("images/title.png");
@@ -135,7 +135,6 @@ function draw(){
   strokeWeight(20);
   cursorImage.src = 'images/sponge.png';
   noFill();
- else if (isDrawing){
   background(dishscreen);
   const distance = dist(mouseX, mouseY, 220, 220);
   const greenMargin = 125; // 7-pixel margin of error added to the radius
@@ -167,9 +166,6 @@ function draw(){
 
 }
 
-}
-
-}
 
 
  function mousePressed() {
@@ -203,7 +199,7 @@ function draw(){
     }
   }
   
- }
+ 
   function mouseReleased() {
     if (screen==3){
     selectedImage = -1;
@@ -237,6 +233,7 @@ function draw(){
    settingsmenu();
  }
   }
+
  function settingsscreen(){
   cursorImage.src = 'images/hand.png';
     background('wheat');
@@ -271,7 +268,7 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
   
  textSize(20);
  fill('wheat');
- //image(washTheDishes,510,220,180,60);
+ image(washTheDishes,510,220,180,60);
  if(mouseIsPressed==true&& mouseX>=510&&mouseX<=730&&mouseY>=220&&mouseY<=280){
    washing();
  } 
