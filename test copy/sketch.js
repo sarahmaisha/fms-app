@@ -13,7 +13,6 @@ document.onmousemove = (e) => {
     cursorImage.style.top = e.pageY - cursorImage.height / 2 + 'px';
 };
 
-
 var screen=0;
 let images = [];
 let selectedImage = -1;
@@ -37,7 +36,7 @@ let greenCounter = 0;
 let hand;
 function preload(){
  // load images
- 
+ //hand=loadImage("images/hand.png");
  correctNoise = loadSound("noise/ding.mp3");
  wrongNoise = loadSound("noise/wrong.mp3");
  title = loadImage("images/title.png");
@@ -96,18 +95,25 @@ images.push({img: veggies6, initialX: 300, initialY: 200, x: 300, y: 200,
 function setup() {
  createCanvas(800, 400);
  startTime = millis();
- 
  strokeWeight(0);
  
 
-
- 
+ strokeWeight(20);
+ noFill();
+ /*for (let i = 0; i < 6; i++) {
+   rectangles.push({
+     x: 75,
+     y: i * 50,
+     xOffset: 0.0,
+     yOffset: 0.0,
+   });
+   rectLocked.push(false);
+ }*/
   rectMode(RADIUS);
   //strokeWeight(2);
 }
 
 function draw(){
-  
  if (screen==0){
    menuscreen();
  }
@@ -129,6 +135,7 @@ function draw(){
   strokeWeight(20);
   cursorImage.src = 'images/sponge.png';
   noFill();
+ else if (isDrawing){
   background(dishscreen);
   const distance = dist(mouseX, mouseY, 220, 220);
   const greenMargin = 125; // 7-pixel margin of error added to the radius
@@ -156,6 +163,9 @@ function draw(){
   if(mouseIsPressed==true&& mouseX>=0&&mouseX<=50&&mouseY>=0&&mouseY<=70){
    settingsmenu();
  }
+}
+
+}
 
 }
 
@@ -191,6 +201,7 @@ function draw(){
       images[selectedImage].y = mouseY - yOffset;
     }
     }
+  }
   
  }
   function mouseReleased() {
@@ -260,7 +271,7 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
   
  textSize(20);
  fill('wheat');
- image(washTheDishes,510,220,180,60);
+ //image(washTheDishes,510,220,180,60);
  if(mouseIsPressed==true&& mouseX>=510&&mouseX<=730&&mouseY>=220&&mouseY<=280){
    washing();
  } 
