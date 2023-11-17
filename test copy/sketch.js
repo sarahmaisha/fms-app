@@ -13,6 +13,17 @@ document.onmousemove = (e) => {
     cursorImage.style.top = e.pageY - cursorImage.height / 2 + 'px';
 };
 
+let restartButton;
+let clickToStart;
+var screen = 0;
+//recipe vars
+let rectangles = [];
+let imagesRecipe = [];
+let boxWidth = 60;
+let boxHeight = 20;
+let rectLocked = [];
+let correctSteps = 0;
+
 var screen=0;
 let images = [];
 let selectedImage = -1;
@@ -20,7 +31,6 @@ let imageSize = 60;
 let xOffset = 0.0;
 let yOffset = 0.0;
 let correctChoices = 0;
-//let rectLocked = [];
 let gColorX = 600; // X-coordinate at which color changes
 let gColorY = 100;
 let rColorY = 200;
@@ -36,6 +46,17 @@ let greenCounter = 0;
 let hand;
 function preload(){
  // load images
+
+ //recipe images
+ clickToStart = loadImage("start.png");
+ let preheatOven = loadImage("preheatoven.png");
+ let ingredients = loadImage("gatherIngredients.png");
+ let separately = loadImage("mixSeparately.png");
+ let combine = loadImage("combine.png");
+ let spoonfuls = loadImage("spoonfuls.png");
+ let bake = loadImage("bake.png");
+ imagesRecipe.push(preheatOven, ingredients, separately, combine, spoonfuls, bake);
+
 hand=loadImage("images/hand.png");
  correctNoise = loadSound("noise/ding.mp3");
  wrongNoise = loadSound("noise/wrong.mp3");
@@ -109,6 +130,19 @@ function setup() {
    });
    rectLocked.push(false);
  }*/
+//recipe setup, step initializing
+ for (let i = 0; i < 6; i++) {
+  rectangles.push({
+    img: images[i],
+    x: 100,
+    y: random(height - 80) + i * 20,
+    xOffset: 0.0,
+    yOffset: 0.0,
+    stepNumber: i
+  });
+  rectLocked.push(false);
+}
+
   rectMode(RADIUS);
   //strokeWeight(2);
 }
@@ -449,14 +483,18 @@ for (let i = 0; i < images.length; i++) {
  
  
  function cutPizza(){
+
     background('blue');
  textSize(50);
  fill('maroon');
  image(title,330,100,200,200);
  image(returnToMenu, 640,340,150,50);
+
+
  if(mouseIsPressed==true&& mouseX>=640&&mouseX<=790&&mouseY>=340&&mouseY<=390){
    selectgame();
  }
+
  }
   function dishes(){
  
