@@ -33,6 +33,7 @@ let isTiming = false;
 let gameCompleted = false;
 let isDrawing=false;
 let greenCounter = 0;
+let redCounter=0;
 let hand;
 function preload(){
  // load images
@@ -59,6 +60,7 @@ hand=loadImage("images/hand.png");
  wrongVeggie = loadImage("images/wrongVeggie.png");
  rightVeggie = loadImage("images/correctVeggie.png");
  DishOhNo= loadImage("images/DishOhNo.png");
+ goodjob= loadImage("images/good_job.png");
 
  images.push({img: veggies1, initialX: 100, initialY: 100, x: 100, y: 100,
   pickedRight: false,
@@ -139,13 +141,16 @@ function draw(){
   background(dishscreen);
   const distance = dist(mouseX, mouseY, 220, 220);
   const greenMargin = 125; // 7-pixel margin of error added to the radius
+  const redMargin = 140;
 
   if (distance <= greenMargin) {
     stroke('blue'); // Set the line green
     greenCounter++;
-  } else {
-    stroke(255, 0, 0); // Set the line red
   }
+ else if (distance > redMargin) {
+  stroke('red');
+  redCounter++;
+ }
 
   line(pmouseX, pmouseY, mouseX, mouseY);
 
@@ -155,8 +160,12 @@ function draw(){
     isDrawing = false;
     textSize(32);
     fill(0);
-    text("Good job!", width / 2, height / 2);
+    image(goodjob, 450, 150, 200, 150);
   }
+  else if (redCounter >=0.3* 140){
+   image (DishOhNo, 450, 150, 200,200);
+  }
+ 
   if(mouseIsPressed==true&& mouseX>=0&&mouseX<=50&&mouseY>=90&&mouseY<=200){
     selectgame();
   }
