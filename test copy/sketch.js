@@ -135,7 +135,7 @@ function draw(){
   strokeWeight(20);
   cursorImage.src = 'images/sponge.png';
   noFill();
- else if (isDrawing){
+  if (isDrawing){
   background(dishscreen);
   const distance = dist(mouseX, mouseY, 220, 220);
   const greenMargin = 125; // 7-pixel margin of error added to the radius
@@ -169,7 +169,7 @@ function draw(){
 
 }
 
-}
+
 
 
  function mousePressed() {
@@ -203,7 +203,7 @@ function draw(){
     }
   }
   
- }
+ 
   function mouseReleased() {
     if (screen==3){
     selectedImage = -1;
