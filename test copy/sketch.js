@@ -58,6 +58,7 @@ hand=loadImage("images/hand.png");
  b2=loadImage("images/basket.png");
  wrongVeggie = loadImage("images/wrongVeggie.png");
  rightVeggie = loadImage("images/correctVeggie.png");
+ DishOhNo= loadImage("images/DishOhNo.png");
 
  images.push({img: veggies1, initialX: 100, initialY: 100, x: 100, y: 100,
   pickedRight: false,
