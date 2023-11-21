@@ -131,8 +131,8 @@ function setup() {
  for (let i = 0; i < 6; i++) {
   rectangles.push({
     img: imagesRecipe[i],
-    x: random(width - 430) + 80,
-    y: random(height - 200) + i * 20,
+    x: random(width - 500) + 80,
+    y: random(height - 250) + 80,
     xOffset: 0.0,
     yOffset: 0.0,
     stepNumber: i
