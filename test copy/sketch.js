@@ -59,6 +59,19 @@ hand=loadImage("images/hand.png");
  b2=loadImage("images/basket.png");
  wrongVeggie = loadImage("images/wrongVeggie.png");
  rightVeggie = loadImage("images/correctVeggie.png");
+<<<<<<< Updated upstream
+=======
+ //dishes
+ cleanDish = loadImage("images/cleanPlate.png");
+ washDish3 = loadImage("images/WashTheDish3");
+
+ DishOhNo= loadImage("images/DishOhNo.png");
+ goodjob= loadImage("images/good_job.png");
+ greenbasket= loadImage("images/greenBasket.png");
+ redbasket= loadImage("images/redBasket.png");
+ restart= loadImage("images/restart.png");
+
+>>>>>>> Stashed changes
  DishOhNo= loadImage("images/DishOhNo.png");
  goodjob= loadImage("images/good_job.png");
 
@@ -134,7 +147,7 @@ function draw(){
    cutPizza();
  }
  else  {
- 
+  
   strokeWeight(20);
   cursorImage.src = 'images/sponge.png';
   noFill();
@@ -157,13 +170,21 @@ function draw(){
   // Check if the greenCounter is greater than or equal to a certain threshold
   if (greenCounter >= 0.95 * 125) {
     // Stop the drawing process by setting isDrawing to false
+    
     isDrawing = false;
+    
     textSize(32);
     fill(0);
-    image(goodjob, 450, 150, 200, 150);
+    image(goodjob, 450, 160, 200, 150);
+    image(restart, 470, 320, 150, 100);
+
+   
   }
-  else if (redCounter >=0.3* 140){
-   image (DishOhNo, 450, 150, 200,200);
+  else if (redCounter >=0.5* 140){
+    
+   image (DishOhNo, 450, 150, 190,190);
+   image(restart, 470, 320, 150, 100);
+  
   }
  
   if(mouseIsPressed==true&& mouseX>=0&&mouseX<=50&&mouseY>=90&&mouseY<=200){
@@ -172,7 +193,13 @@ function draw(){
   if(mouseIsPressed==true&& mouseX>=0&&mouseX<=50&&mouseY>=0&&mouseY<=70){
    settingsmenu();
  }
+
+ if (mouseIsPressed==true&& mouseX>=370 &&mouseX<=570 &&mouseY>=220&&mouseY<=420){
+  redCounter=0;
+  greenCounter=0;
 }
+}
+
 
 }
 
