@@ -58,6 +58,14 @@ hand=loadImage("images/hand.png");
  b2=loadImage("images/basket.png");
  wrongVeggie = loadImage("images/wrongVeggie.png");
  rightVeggie = loadImage("images/correctVeggie.png");
+<<<<<<< Updated upstream
+=======
+ DishOhNo= loadImage("images/DishOhNo.png");
+ goodjob= loadImage("images/good_job.png");
+ greenbasket= loadImage("images/greenBasket.png");
+ redbasket= loadImage("images/redBasket.png");
+ restart= loadImage("images/restart.png");
+>>>>>>> Stashed changes
 
  images.push({img: veggies1, initialX: 100, initialY: 100, x: 100, y: 100,
   pickedRight: false,
@@ -366,11 +374,11 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
     }
   }
 
-  text("green basket", 600, 80);
+  image(greenbasket, 600, 30, 90, 70);
   image(b1, 600, 100, 100, 100);
 
-  text("red basket", 600, 230);
-  image(b2, 600, 250, 100, 100);
+  image(redbasket, 600, 200, 90, 70);
+  image(b2, 600, 280, 100, 100);
 
   for (let i = 0; i < images.length; i++) {
     if (images[i].tryAgain) {
@@ -399,19 +407,15 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
   // If all vegetables are in the correct place, display "Good Job!"
   if (allCorrect && correctChoices === images.length) {
     fill(0, 255, 0);
-    text("Good Job!", 350, 200);
-    fill(0); // Set text color to black
-    textSize(20);
-    text("Time: " + Math.floor(elapsedTime / 1000) + " seconds", 350, 240);
+    image(goodjob, 180, 120, 200, 150);
     
     // Display a restart button
-    fill(255);
-    rect(390, 280, 100, 40);
-    fill(0);
-    text("Restart", 360, 290);
+  
+    image(restart, 390, 150, 150, 100);
+    
 
     // Check if the restart button is clicked
-    if (mouseIsPressed && mouseX >= 360 && mouseX <= 490 && mouseY >= 280 && mouseY <= 320) {
+    if (mouseIsPressed==true && mouseX >= 290 && mouseX <= 490 && mouseY >= 50 && mouseY <= 250) {
       resetVeggies();
     }
 
