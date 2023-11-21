@@ -534,12 +534,7 @@ for (let i = 0; i < images.length; i++) {
   
   image(rectangles[i].img, rectangles[i].x, rectangles[i].y, 2 * boxWidth, 2 * boxHeight);
 
-  if (correctSteps === 6) {
-    textSize(30);
-    text('Good job!!', 200, 200);
-    //textSize(15);
-   // restartButton.show();
-  }
+  
 
   fill(0);
   text(i + 1, 520, 50 + i * 60);
@@ -548,6 +543,13 @@ for (let i = 0; i < images.length; i++) {
   rect(stepX, stepY, boxWidth, boxHeight);
   noStroke();
 
+  if (correctSteps === 6) {
+    textSize(30);
+    text('Good job!!', 200, 200);
+    //textSize(15);
+   // restartButton.show();
+  }
+  
 }
 
 
