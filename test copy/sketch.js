@@ -14,6 +14,7 @@ document.onmousemove = (e) => {
 };
 
 let restartButton;
+let goodJobCookie;
 let clickToStart;
 var screen = 0;
 //recipe vars
@@ -37,6 +38,7 @@ let gColorX = 600; // X-coordinate at which color changes
 let gColorY = 100;
 let rColorY = 200;
 let veggiesscreen;
+let recipeBG;
 let correctMessage = "";
 let allCorrect = false;
 let startTime = 0;
@@ -57,6 +59,7 @@ function preload(){
   let combine = loadImage("images/combine.png");
   let spoonfuls = loadImage("images/spoonfuls.png");
   let bake = loadImage("images/bake.png");
+  goodJobCookie = loadImage("images/goodjobcookie.png");
   imagesRecipe.push(preheatOven, ingredients, separately, combine, spoonfuls, bake);
 
 hand=loadImage("images/hand.png");
@@ -77,6 +80,7 @@ hand=loadImage("images/hand.png");
  veggies5= loadImage("images/veggies_4.png");
  veggies6= loadImage("images/veggies_5.png");
  veggiesscreen= loadImage("images/Sorting_Vegetables.png");
+ recipeBG = loadImage("images/recipeBG.png");
  b1=loadImage("images/basket.png");
  b2=loadImage("images/basket.png");
  wrongVeggie = loadImage("images/wrongVeggie.png");
@@ -127,8 +131,8 @@ function setup() {
  for (let i = 0; i < 6; i++) {
   rectangles.push({
     img: imagesRecipe[i],
-    x: 100,
-    y: random(height - 80) + i * 20,
+    x: random(width - 430) + 80,
+    y: random(height - 200) + i * 20,
     xOffset: 0.0,
     yOffset: 0.0,
     stepNumber: i
@@ -137,9 +141,10 @@ function setup() {
 }
 //recipe restart button
 restartButton = createImg('images/restart.png', 'restart');
-restartButton.position(200, 300);
-restartButton.size(80, 30);
+restartButton.position(230, 250);
+restartButton.size(80, 50);
 restartButton.mousePressed(restartRecipe);
+restartButton.hide();
 
   rectMode(RADIUS);
   //strokeWeight(2);
@@ -509,7 +514,7 @@ for (let i = 0; i < images.length; i++) {
  
  
  function cutPizza(){
-  background(237, 220, 220);
+  background(recipeBG);
   textSize(15);
   fill(0, 0, 0);
   fill(255);
@@ -522,7 +527,6 @@ for (let i = 0; i < images.length; i++) {
   //let rightPosition = true;
   let stepX = 600;
   let stepY = 50 + i * 60;
-
   if (rectangles[i].x > stepX - 80 && rectangles[i].y > stepY - 30 && rectangles[i].y < stepY + boxHeight - 10){
     rectangles[i].x = stepX - 60;
     rectangles[i].y = stepY - 20;
@@ -530,46 +534,47 @@ for (let i = 0; i < images.length; i++) {
   }
   if (rectangles[i].x == stepX - 60) {
     correctSteps++;
+    rectangles[i].x++;
   }
-  
+
   image(rectangles[i].img, rectangles[i].x, rectangles[i].y, 2 * boxWidth, 2 * boxHeight);
 
-  
-
   fill(0);
+  //text(correctSteps, 200, 230);
   text(i + 1, 520, 50 + i * 60);
   noFill();
   stroke(220, 190, 150);
   rect(stepX, stepY, boxWidth, boxHeight);
   noStroke();
-
-  if (correctSteps === 6) {
-    textSize(30);
-    text('Good job!!', 200, 200);
-    //textSize(15);
-   // restartButton.show();
+  if (correctSteps == 6) {
+    //textSize(30);
+    //fill(0,255,0);
+    //text('Good job!!', 200, 200);
+    image(goodJobCookie, 170, 50);
+    textSize(15);
+    restartButton.show();
+  }else{
+    restartButton.hide();
   }
   
 }
 
 
 
- image(returnToMenu, 640,340,150,50);
+ image(returnToMenu, 10,20,100,40);
 
 
- if(mouseIsPressed==true&& mouseX>=640&&mouseX<=790&&mouseY>=340&&mouseY<=390){
+ if(mouseIsPressed==true&& mouseX>=10&&mouseX<=110&&mouseY>=20&&mouseY<=60){
    selectgame();
  }
 }
 
 function restartRecipe() {
-  screen = 0;
   correctSteps = 0;
   for (let i = 0; i < rectangles.length; i++) {
     rectangles[i].x = 100;
     rectangles[i].y = random(height - 80) + i * 20;
   }
-  // Reset any other necessary variables or states here
 }
 
 
