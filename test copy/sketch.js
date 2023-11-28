@@ -674,6 +674,12 @@ function restartRecipe() {
     image(goodjob, 450, 160, 200, 150);
     image(restart, 470, 320, 150, 100);
     image(cleanDish, 65, 80, 320, 290);
+    if (mouseIsPressed==true&& mouseX>=370 &&mouseX<=570 &&mouseY>=220&&mouseY<=420){
+      cursorImage.src = 'images/sponge.png';
+      redCounter=0;
+      greenCounter=0;
+      elapsedTime=0;
+    }
     
   }
   else if (redCounter >=0.4* 140){
@@ -686,6 +692,12 @@ function restartRecipe() {
    image(dishFoam, 0, 0, 800, 400);
    image(DishOhNo, 450, 150, 190,190);
    image(restart, 470, 320, 150, 100);
+   if (mouseIsPressed==true&& mouseX>=370 &&mouseX<=570 &&mouseY>=220&&mouseY<=420){
+    cursorImage.src = 'images/sponge.png';
+    redCounter=0;
+    greenCounter=0;
+    elapsedTime=0;
+  }
    
   }
  
@@ -701,11 +713,9 @@ function restartRecipe() {
    
  }
 
- if (mouseIsPressed==true&& mouseX>=370 &&mouseX<=570 &&mouseY>=220&&mouseY<=420){
-  cursorImage.src = 'images/hand.png';
-  redCounter=0;
-  greenCounter=0;
-  elapsedTime=0;
+
+if (screen === 5) {
+  document.body.style.cursor = 'none'; // Hide the default cursor
 }
   }
  
