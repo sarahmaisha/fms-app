@@ -227,6 +227,7 @@ function draw(){
   // Check if the greenCounter is greater than or equal to a certain threshold
   if (greenCounter >= 0.95 * 125) {
     // Stop the drawing process by setting isDrawing to false
+    cursorImage.src = 'images/sponge.png';
     textSize(20);
     strokeWeight(0);
     fill(255);
@@ -239,10 +240,10 @@ function draw(){
     image(goodjob, 450, 160, 200, 150);
     image(restart, 470, 320, 150, 100);
     image(cleanDish, 65, 80, 320, 290);
-    cursorImage.src = 'images/sponge.png';
-   
+    
   }
   else if (redCounter >=0.4* 140){
+    cursorImage.src = 'images/sponge.png';
     textSize(20);
     strokeWeight(0);
     fill(255);
@@ -251,7 +252,7 @@ function draw(){
    image(dishFoam, 0, 0, 800, 400);
    image(DishOhNo, 450, 150, 190,190);
    image(restart, 470, 320, 150, 100);
-   cursorImage.src = 'images/sponge.png';
+   
   }
  
   // if(mouseIsPressed==true&& mouseX>=0&&mouseX<=50&&mouseY>=90&&mouseY<=150){
@@ -264,6 +265,7 @@ function draw(){
  }
 
  if (mouseIsPressed==true&& mouseX>=370 &&mouseX<=570 &&mouseY>=220&&mouseY<=420){
+  cursorImage.src = 'images/sponge.png';
   redCounter=0;
   greenCounter=0;
   elapsedTime=0;
