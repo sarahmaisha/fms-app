@@ -13,6 +13,20 @@ document.onmousemove = (e) => {
     cursorImage.style.top = e.pageY - cursorImage.height / 2 + 'px';
 };
 
+let restartButton;
+let goodJobCookie;
+let clickToStart;
+var screen = 0;
+//recipe vars
+let rectangles = [];
+let imagesRecipe = [];
+let boxWidth = 60;
+let boxHeight = 20;
+let rectLocked = [];
+let correctSteps = 0;
+let preheatOven;
+
+
 var screen=0;
 let images = [];
 let selectedImage = -1;
@@ -20,11 +34,11 @@ let imageSize = 60;
 let xOffset = 0.0;
 let yOffset = 0.0;
 let correctChoices = 0;
-//let rectLocked = [];
 let gColorX = 600; // X-coordinate at which color changes
 let gColorY = 100;
 let rColorY = 200;
 let veggiesscreen;
+let recipeBG;
 let correctMessage = "";
 let allCorrect = false;
 let startTime = 0;
@@ -37,6 +51,18 @@ let redCounter=0;
 let hand;
 function preload(){
  // load images
+
+ //recipe images
+  clickToStart = loadImage("images/start.png");
+  preheatOven = loadImage("images/preheatoven.png");
+  let ingredients = loadImage("images/gatherIngredients.png");
+  let separately = loadImage("images/mixSeparately.png");
+  let combine = loadImage("images/combine.png");
+  let spoonfuls = loadImage("images/spoonfuls.png");
+  let bake = loadImage("images/bake.png");
+  goodJobCookie = loadImage("images/goodjobcookie.png");
+  imagesRecipe.push(preheatOven, ingredients, separately, combine, spoonfuls, bake);
+
 hand=loadImage("images/hand.png");
  correctNoise = loadSound("noise/ding.mp3");
  wrongNoise = loadSound("noise/wrong.mp3");
@@ -55,6 +81,7 @@ hand=loadImage("images/hand.png");
  veggies5= loadImage("images/veggies_4.png");
  veggies6= loadImage("images/veggies_5.png");
  veggiesscreen= loadImage("images/Sorting_Vegetables.png");
+ recipeBG = loadImage("images/recipeBG.png");
  b1=loadImage("images/basket.png");
  b2=loadImage("images/basket.png");
  wrongVeggie = loadImage("images/wrongVeggie.png");
@@ -110,15 +137,25 @@ function setup() {
 
  strokeWeight(20);
  noFill();
- /*for (let i = 0; i < 6; i++) {
-   rectangles.push({
-     x: 75,
-     y: i * 50,
-     xOffset: 0.0,
-     yOffset: 0.0,
-   });
-   rectLocked.push(false);
- }*/
+//recipe setup, step initializing
+ for (let i = 0; i < 6; i++) {
+  rectangles.push({
+    img: imagesRecipe[i],
+    x: random(width - 500) + 80,
+    y: random(height - 250) + 80,
+    xOffset: 0.0,
+    yOffset: 0.0,
+    stepNumber: i
+  });
+  rectLocked.push(false);
+}
+//recipe restart button
+restartButton = createImg('images/restart.png', 'restart');
+restartButton.position(230, 250);
+restartButton.size(80, 50);
+restartButton.mousePressed(restartRecipe);
+restartButton.hide();
+
   rectMode(RADIUS);
   //strokeWeight(2);
 }
@@ -202,9 +239,25 @@ function draw(){
      }
    }
   }
+  else if(screen == 4){
+    for (let i = 0; i < rectangles.length; i++) {
+      let rectTouching = (mouseX > rectangles[i].x &&
+        mouseX < rectangles[i].x + 2 * boxWidth &&
+        mouseY > rectangles[i].y &&
+        mouseY < rectangles[i].y + 2 * boxHeight);
+  
+      if (rectTouching) {
+        rectLocked[i] = true;
+        fill(255, 255, 255);
+        rectangles[i].xOffset = mouseX - rectangles[i].x;
+        rectangles[i].yOffset = mouseY - rectangles[i].y;
+      }
+    }
+  }
   else if (screen==5){
     isDrawing = true;
   }
+
  }
   function mouseDragged() {
    
@@ -213,6 +266,13 @@ function draw(){
       images[selectedImage].x = mouseX - xOffset;
       images[selectedImage].y = mouseY - yOffset;
     }
+    }else if (screen == 4){
+      for (let i = 0; i < rectangles.length; i++) {
+        if (rectLocked[i]) {
+          rectangles[i].x = mouseX - rectangles[i].xOffset;
+          rectangles[i].y = mouseY - rectangles[i].yOffset;
+        }
+      }
     }
   }
   
@@ -220,6 +280,11 @@ function draw(){
   function mouseReleased() {
     if (screen==3){
     selectedImage = -1;
+    }
+    else if(screen == 4){
+      for (let i = 0; i < rectangles.length; i++) {
+        rectLocked[i] = false;
+      }
     }
     else if (screen==5){
       isDrawing = false;
@@ -462,15 +527,70 @@ for (let i = 0; i < images.length; i++) {
  
  
  function cutPizza(){
-    background('blue');
- textSize(50);
- fill('maroon');
- image(title,330,100,200,200);
- image(returnToMenu, 640,340,150,50);
- if(mouseIsPressed==true&& mouseX>=640&&mouseX<=790&&mouseY>=340&&mouseY<=390){
+  background(recipeBG);
+  textSize(15);
+  fill(0, 0, 0);
+  fill(255);
+  strokeWeight(4);
+  stroke(0);
+  rect(600, 200, 100, 180);
+  noStroke();
+  correctSteps = 0;
+ for (let i = 0; i < rectangles.length; i++) {
+  //let rightPosition = true;
+  let stepX = 600;
+  let stepY = 50 + i * 60;
+  if (rectangles[i].x > stepX - 80 && rectangles[i].y > stepY - 30 && rectangles[i].y < stepY + boxHeight - 10){
+    rectangles[i].x = stepX - 60;
+    rectangles[i].y = stepY - 20;
+    fill(0, 255, 0);
+  }
+  if (rectangles[i].x == stepX - 60) {
+    correctSteps++;
+    rectangles[i].x++;
+  }
+
+  image(rectangles[i].img, rectangles[i].x, rectangles[i].y, 2 * boxWidth, 2 * boxHeight);
+
+  fill(0);
+  //text(correctSteps, 200, 230);
+  text(i + 1, 520, 50 + i * 60);
+  noFill();
+  stroke(220, 190, 150);
+  rect(stepX, stepY, boxWidth, boxHeight);
+  noStroke();
+  if (correctSteps == 6) {
+    //textSize(30);
+    //fill(0,255,0);
+    //text('Good job!!', 200, 200);
+    image(goodJobCookie, 170, 50);
+    textSize(15);
+    restartButton.show();
+  }else{
+    restartButton.hide();
+  }
+  
+}
+
+
+
+ image(returnToMenu, 10,20,100,40);
+
+
+ if(mouseIsPressed==true&& mouseX>=10&&mouseX<=110&&mouseY>=20&&mouseY<=60){
    selectgame();
  }
- }
+}
+
+function restartRecipe() {
+  correctSteps = 0;
+  for (let i = 0; i < rectangles.length; i++) {
+    rectangles[i].x = 100;
+    rectangles[i].y = random(height - 80) + i * 20;
+  }
+}
+
+
   function dishes(){
  
  }
