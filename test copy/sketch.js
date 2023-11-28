@@ -87,6 +87,11 @@ hand=loadImage("images/hand.png");
  wrongVeggie = loadImage("images/wrongVeggie.png");
  rightVeggie = loadImage("images/correctVeggie.png");
 
+
+ cleanDish = loadImage("images/cleanPlate.png");
+ washDish3 = loadImage("images/WashTheDish3.png");
+ dishFoam = loadImage("images/DishesFoam.png");
+
  DishOhNo= loadImage("images/DishOhNo.png");
  goodjob= loadImage("images/good_job.png");
  greenbasket= loadImage("images/greenBasket.png");
@@ -95,6 +100,10 @@ hand=loadImage("images/hand.png");
 
  DishOhNo= loadImage("images/DishOhNo.png");
  goodjob= loadImage("images/good_job.png");
+ greenbasket= loadImage("images/greenBasket.png");
+ redbasket= loadImage("images/redBasket.png");
+ restart= loadImage("images/restart.png");
+
 
  images.push({img: veggies1, initialX: 100, initialY: 100, x: 100, y: 100,
   pickedRight: false,
@@ -178,11 +187,11 @@ function draw(){
    cutPizza();
  }
  else  {
- 
+  
   strokeWeight(20);
   cursorImage.src = 'images/sponge.png';
   noFill();
-  background(dishscreen);
+  background(washDish3);
   const distance = dist(mouseX, mouseY, 220, 220);
   const greenMargin = 125; // 7-pixel margin of error added to the radius
   const redMargin = 140;
@@ -201,22 +210,37 @@ function draw(){
   // Check if the greenCounter is greater than or equal to a certain threshold
   if (greenCounter >= 0.95 * 125) {
     // Stop the drawing process by setting isDrawing to false
+    
     isDrawing = false;
+    
     textSize(32);
     fill(0);
-    image(goodjob, 450, 150, 200, 150);
+    image(goodjob, 450, 160, 200, 150);
+    image(restart, 470, 320, 150, 100);
+    image(cleanDish, 65, 80, 320, 290);
+
+   
   }
-  else if (redCounter >=0.3* 140){
-   image (DishOhNo, 450, 150, 200,200);
+  else if (redCounter >=0.2* 140){
+   image(dishFoam, 0, 0, 800, 400);
+   image(DishOhNo, 450, 150, 190,190);
+   image(restart, 470, 320, 150, 100);
+  
   }
  
-  if(mouseIsPressed==true&& mouseX>=0&&mouseX<=50&&mouseY>=90&&mouseY<=200){
+  if(mouseIsPressed==true&& mouseX>=0&&mouseX<=50&&mouseY>=90&&mouseY<=150){
     selectgame();
   }
   if(mouseIsPressed==true&& mouseX>=0&&mouseX<=50&&mouseY>=0&&mouseY<=70){
    settingsmenu();
  }
+
+ if (mouseIsPressed==true&& mouseX>=370 &&mouseX<=570 &&mouseY>=220&&mouseY<=420){
+  redCounter=0;
+  greenCounter=0;
 }
+}
+
 
 }
 
