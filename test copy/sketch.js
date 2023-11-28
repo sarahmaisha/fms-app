@@ -81,7 +81,7 @@ hand=loadImage("images/hand.png");
  veggies4= loadImage("images/veggies_3.png");
  veggies5= loadImage("images/veggies_4.png");
  veggies6= loadImage("images/veggies_5.png");
- veggiesscreen= loadImage("images/FINAL_SortingVegetables.png");
+ veggiesscreen= loadImage("images/FINAL_Sorting_Vegetables.png");
  recipeBG = loadImage("images/recipeBG.png");
  b1=loadImage("images/basket.png");
  b2=loadImage("images/basket.png");
@@ -195,7 +195,8 @@ function draw(){
   background(washDish3);
   textSize(20);
   fill(255);
-  text(`Time: ${Math.floor(elapsedTime / 1000)} seconds`, 150, 380); 
+  text(`Time: ${Math.floor(elapsedTime / 1000)} seconds`, 150, 380);
+  
   if (!isTiming&&(greenCounter <= 0.95 * 125||redCounter <=0.4* 140)) {
     
     startTime = millis() - elapsedTime;
@@ -205,6 +206,7 @@ function draw(){
   if (isTiming) {
     elapsedTime = millis() - startTime;
   }
+ 
   const distance = dist(mouseX, mouseY, 220, 220);
   const greenMargin = 125; // 7-pixel margin of error added to the radius
   const redMargin = 140;
@@ -257,6 +259,8 @@ function draw(){
   // }
   if(mouseIsPressed==true&& mouseX>=0&&mouseX<=50&&mouseY>=0&&mouseY<=70){
    selectgame();
+   elapsedTime=0;
+   isTiming=false;
  }
 
  if (mouseIsPressed==true&& mouseX>=370 &&mouseX<=570 &&mouseY>=220&&mouseY<=420){
@@ -412,6 +416,7 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
   
  }
  function veggies() {
+  
   cursorImage.src = 'images/hand.png';
   strokeWeight(0);
   background(veggiesscreen);
@@ -426,7 +431,7 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
        break;
      }
    }
- 
+   
    if (movingVegetable && !isTiming) {
      // Start the timer when the user interacts with the vegetables
      startTime = millis() - elapsedTime;
@@ -549,6 +554,8 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
 //  }
  if(mouseIsPressed==true&& mouseX>=0&&mouseX<=50&&mouseY>=0&&mouseY<=100){
   selectgame();
+  elapsedTime=0;
+   isTiming=false;
 }
 
   }
@@ -577,7 +584,7 @@ for (let i = 0; i < images.length; i++) {
  
  function cutPizza(){
 
-  
+ 
   background(recipeBG);
   textSize(15);
   fill(0, 0, 0);
@@ -591,6 +598,7 @@ for (let i = 0; i < images.length; i++) {
   textSize(20);
   fill(255);
   text(`Time: ${Math.floor(elapsedTime / 1000)} seconds`, 325, 350); 
+  
   if (!isTiming&&correctSteps!=6) {
     startTime = millis() - elapsedTime;
     isTiming = true;
@@ -660,6 +668,8 @@ for (let i = 0; i < images.length; i++) {
 
  if(mouseIsPressed==true&& mouseX>=10&&mouseX<=110&&mouseY>=20&&mouseY<=60){
    selectgame();
+   elapsedTime=0;
+   isTiming=false;
  }
 }
 
