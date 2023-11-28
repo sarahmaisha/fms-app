@@ -13,7 +13,7 @@ document.onmousemove = (e) => {
     cursorImage.style.top = e.pageY - cursorImage.height / 2 + 'px';
 };
 
-let restartButton;
+
 let goodJobCookie;
 let clickToStart;
 var screen = 0;
@@ -587,11 +587,12 @@ for (let i = 0; i < images.length; i++) {
     //textSize(30);
     //fill(0,255,0);
     //text('Good job!!', 200, 200);
-    image(goodJobCookie, 170, 50);
+    image(goodJobCookie, 170, 15);
     textSize(15);
-    restartButton.show();
-  }else{
-    restartButton.hide();
+    image(restart, 190, 210, 150, 100);
+    if(mouseIsPressed==true&& mouseX>=320&&mouseX<=570&&mouseY>=220&&mouseY<=400){
+      restartRecipe();
+    }
   }
   
 }
