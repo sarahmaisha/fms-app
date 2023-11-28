@@ -188,19 +188,33 @@ function draw(){
  }
  else  {
   
-  strokeWeight(20);
+  strokeWeight(0);
   cursorImage.src = 'images/sponge.png';
   noFill();
   background(washDish3);
+  textSize(20);
+  fill(255);
+  text(`Time: ${Math.floor(elapsedTime / 1000)} seconds`, 150, 380); 
+  if (!isTiming&&(greenCounter <= 0.95 * 125||redCounter <=0.4* 140)) {
+    
+    startTime = millis() - elapsedTime;
+    isTiming = true;
+  }
+
+  if (isTiming) {
+    elapsedTime = millis() - startTime;
+  }
   const distance = dist(mouseX, mouseY, 220, 220);
   const greenMargin = 125; // 7-pixel margin of error added to the radius
   const redMargin = 140;
 
   if (distance <= greenMargin) {
+    strokeWeight(20);
     stroke('blue'); // Set the line green
     greenCounter++;
   }
  else if (distance > redMargin) {
+  strokeWeight(20);
   stroke('red');
   redCounter++;
  }
@@ -210,7 +224,11 @@ function draw(){
   // Check if the greenCounter is greater than or equal to a certain threshold
   if (greenCounter >= 0.95 * 125) {
     // Stop the drawing process by setting isDrawing to false
-    
+    textSize(20);
+    strokeWeight(0);
+    fill(255);
+    isTiming=false;
+    text(`Time: ${Math.floor(elapsedTime / 1000)} seconds`, 150, 380);
     isDrawing = false;
     
     textSize(32);
@@ -218,14 +236,19 @@ function draw(){
     image(goodjob, 450, 160, 200, 150);
     image(restart, 470, 320, 150, 100);
     image(cleanDish, 65, 80, 320, 290);
-
+    cursorImage.src = 'images/sponge.png';
    
   }
-  else if (redCounter >=0.2* 140){
+  else if (redCounter >=0.4* 140){
+    textSize(20);
+    strokeWeight(0);
+    fill(255);
+    isTiming=false;
+    text(`Time: ${Math.floor(elapsedTime / 1000)} seconds`, 150, 380);
    image(dishFoam, 0, 0, 800, 400);
    image(DishOhNo, 450, 150, 190,190);
    image(restart, 470, 320, 150, 100);
-  
+   cursorImage.src = 'images/sponge.png';
   }
  
   if(mouseIsPressed==true&& mouseX>=0&&mouseX<=50&&mouseY>=90&&mouseY<=150){
@@ -238,6 +261,7 @@ function draw(){
  if (mouseIsPressed==true&& mouseX>=370 &&mouseX<=570 &&mouseY>=220&&mouseY<=420){
   redCounter=0;
   greenCounter=0;
+  elapsedTime=0;
 }
 }
 
@@ -551,6 +575,8 @@ for (let i = 0; i < images.length; i++) {
  
  
  function cutPizza(){
+
+  
   background(recipeBG);
   textSize(15);
   fill(0, 0, 0);
@@ -560,6 +586,31 @@ for (let i = 0; i < images.length; i++) {
   rect(600, 200, 100, 180);
   noStroke();
   correctSteps = 0;
+  let movingRecipe = false;
+  textSize(20);
+  fill(255);
+  text(`Time: ${Math.floor(elapsedTime / 1000)} seconds`, 325, 350); 
+  if (!isTiming&&correctSteps!=6) {
+    startTime = millis() - elapsedTime;
+    isTiming = true;
+  }
+
+  if (isTiming) {
+    elapsedTime = millis() - startTime;
+  }
+   
+  // ...
+   for (let i = 0; i < rectangles.length; i++) {
+     if (rectangles[i].canMove) {
+       movingRecipe = true;
+       break;
+     }
+   }
+   
+   
+ 
+   
+   
  for (let i = 0; i < rectangles.length; i++) {
   //let rightPosition = true;
   let stepX = 600;
@@ -584,13 +635,17 @@ for (let i = 0; i < images.length; i++) {
   rect(stepX, stepY, boxWidth, boxHeight);
   noStroke();
   if (correctSteps == 6) {
+    textSize(20);
+    fill(255);
+    isTiming=false;
+    text(`Time: ${Math.floor(elapsedTime / 1000)} seconds`, 325, 350);
     //textSize(30);
     //fill(0,255,0);
     //text('Good job!!', 200, 200);
     image(goodJobCookie, 170, 15);
     textSize(15);
     image(restart, 190, 210, 150, 100);
-    if(mouseIsPressed==true&& mouseX>=320&&mouseX<=570&&mouseY>=220&&mouseY<=400){
+    if(mouseIsPressed==true&& mouseX>=40&&mouseX<=320&&mouseY>=110&&mouseY<=300){
       restartRecipe();
     }
   }
@@ -609,6 +664,7 @@ for (let i = 0; i < images.length; i++) {
 
 function restartRecipe() {
   correctSteps = 0;
+  elapsedTime=0;
   for (let i = 0; i < rectangles.length; i++) {
     rectangles[i].x = 100;
     rectangles[i].y = random(height - 80) + i * 20;
