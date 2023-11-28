@@ -1,8 +1,13 @@
-cursorImage.src = 'images/hand.png';
-if (screen==5){
+
+const cursorImage = new Image();
+
+if (screen==5 &&screen!=0&&screen!=1&&screen!=2&&screen!=3&&screen!=4){
   cursorImage.src = 'images/sponge.png';
 }
-const cursorImage = new Image();
+else {
+  cursorImage.src = 'images/hand.png';
+}
+
 cursorImage.width = 40;
 cursorImage.height = 40;
 cursorImage.style.position = 'absolute';
@@ -191,91 +196,16 @@ function draw(){
    cutPizza();
  }
  else if(screen==5) {
-  cursorImage.src = 'images/sponge.png';
+  
   strokeWeight(0);
   noFill();
   background(washDish3);
   textSize(20);
   fill(255);
   text(`Time: ${Math.floor(elapsedTime / 1000)} seconds`, 150, 380);
+  cursorImage.src = 'images/sponge.png';
+  dishes();
   
-  if (!isTiming&&(greenCounter <= 0.95 * 125||redCounter <=0.4* 140)) {
-    cursorImage.src = 'images/sponge.png';
-    startTime = millis() - elapsedTime;
-    isTiming = true;
-  }
-
-  if (isTiming) {
-    elapsedTime = millis() - startTime;
-  }
- 
-  const distance = dist(mouseX, mouseY, 220, 220);
-  const greenMargin = 125; // 7-pixel margin of error added to the radius
-  const redMargin = 140;
-
-  if (distance <= greenMargin) {
-    cursorImage.src = 'images/sponge.png';
-    strokeWeight(20);
-    stroke('blue'); // Set the line green
-    greenCounter++;
-  }
- else if (distance > redMargin) {
-  cursorImage.src = 'images/sponge.png';
-  strokeWeight(20);
-  stroke('red');
-  redCounter++;
- }
-
-  line(pmouseX, pmouseY, mouseX, mouseY);
-
-  // Check if the greenCounter is greater than or equal to a certain threshold
-  if (greenCounter >= 0.95 * 125) {
-    // Stop the drawing process by setting isDrawing to false
-    cursorImage.src = 'images/sponge.png';
-    textSize(20);
-    strokeWeight(0);
-    fill(255);
-    isTiming=false;
-    text(`Time: ${Math.floor(elapsedTime / 1000)} seconds`, 150, 380);
-    isDrawing = false;
-    
-    textSize(32);
-    fill(0);
-    image(goodjob, 450, 160, 200, 150);
-    image(restart, 470, 320, 150, 100);
-    image(cleanDish, 65, 80, 320, 290);
-    
-  }
-  else if (redCounter >=0.4* 140){
-    cursorImage.src = 'images/sponge.png';
-    textSize(20);
-    strokeWeight(0);
-    fill(255);
-    isTiming=false;
-    text(`Time: ${Math.floor(elapsedTime / 1000)} seconds`, 150, 380);
-   image(dishFoam, 0, 0, 800, 400);
-   image(DishOhNo, 450, 150, 190,190);
-   image(restart, 470, 320, 150, 100);
-   
-  }
- 
-  // if(mouseIsPressed==true&& mouseX>=0&&mouseX<=50&&mouseY>=90&&mouseY<=150){
-  //   selectgame();
-  // }
-  if(mouseIsPressed==true&& mouseX>=0&&mouseX<=50&&mouseY>=0&&mouseY<=70){
-   selectgame();
-   elapsedTime=0;
-   isTiming=false;
-   cursorImage.src = 'images/hand.png';
-   
- }
-
- if (mouseIsPressed==true&& mouseX>=370 &&mouseX<=570 &&mouseY>=220&&mouseY<=420){
-  cursorImage.src = 'images/sponge.png';
-  redCounter=0;
-  greenCounter=0;
-  elapsedTime=0;
-}
 }
 
 
@@ -356,7 +286,7 @@ function draw(){
 
 
  function menuscreen() {
-  cursorImage.src = 'images/hand.png';
+ 
  background('wheat');
  textSize(50);
  fill('maroon');
@@ -378,7 +308,7 @@ function draw(){
   }
 
 //  function settingsscreen(){
-//   cursorImage.src = 'images/hand.png';
+
 //     background('wheat');
 //  textSize(50);
 //  fill('maroon');
@@ -389,7 +319,7 @@ function draw(){
 //  }
 //  }
   function selectscreen(){
-    cursorImage.src = 'images/hand.png';
+   
  background('wheat');
  textSize(25);
  fill('maroon');
@@ -413,8 +343,8 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
  fill('wheat');
  image(washTheDishes,510,220,180,60);
  if(mouseIsPressed==true&& mouseX>=510&&mouseX<=730&&mouseY>=220&&mouseY<=280){
-  cursorImage.src = 'images/sponge.png';
-  washing();
+  
+  screen=5;
    
  } 
 
@@ -422,12 +352,12 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
   image(returnToMenu,10,340,140,50);
  if(mouseIsPressed==true&& mouseX>=10&&mouseX<=190&&mouseY>=340&&mouseY<=390){
    homepage();
-   cursorImage.src = 'images/hand.png';
+   
  }
   
  }
  function veggies() {
-  cursorImage.src = 'images/hand.png';
+
   
   strokeWeight(0);
   background(veggiesscreen);
@@ -578,7 +508,7 @@ allCorrect = false;
 gameCompleted = false;
 isTiming = false;
 elapsedTime = 0;
-cursorImage.src = 'images/hand.png';
+
 
 // Reset the vegetable positions
 for (let i = 0; i < images.length; i++) {
@@ -596,7 +526,7 @@ for (let i = 0; i < images.length; i++) {
  
  function cutPizza(){
 
-  cursorImage.src = 'images/hand.png';
+ 
   background(recipeBG);
   textSize(15);
   fill(0, 0, 0);
@@ -682,12 +612,12 @@ for (let i = 0; i < images.length; i++) {
    selectgame();
    elapsedTime=0;
    isTiming=false;
-   cursorImage.src = 'images/hand.png';
+   
  }
 }
 
 function restartRecipe() {
-  cursorImage.src = 'images/hand.png';
+  
   correctSteps = 0;
   elapsedTime=0;
   for (let i = 0; i < rectangles.length; i++) {
@@ -698,6 +628,85 @@ function restartRecipe() {
 
 
   function dishes(){
+    cursorImage.src = 'images/sponge.png';
+    if (!isTiming&&(greenCounter <= 0.95 * 125||redCounter <=0.4* 140)) {
+  
+    startTime = millis() - elapsedTime;
+    isTiming = true;
+  }
+
+  if (isTiming) {
+    elapsedTime = millis() - startTime;
+  }
+ 
+  const distance = dist(mouseX, mouseY, 220, 220);
+  const greenMargin = 125; // 7-pixel margin of error added to the radius
+  const redMargin = 140;
+
+  if (distance <= greenMargin) {
+   
+    strokeWeight(20);
+    stroke('blue'); // Set the line green
+    greenCounter++;
+  }
+ else if (distance > redMargin) {
+  
+  strokeWeight(20);
+  stroke('red');
+  redCounter++;
+ }
+
+  line(pmouseX, pmouseY, mouseX, mouseY);
+
+  // Check if the greenCounter is greater than or equal to a certain threshold
+  if (greenCounter >= 0.95 * 125) {
+    // Stop the drawing process by setting isDrawing to false
+    
+    textSize(20);
+    strokeWeight(0);
+    fill(255);
+    isTiming=false;
+    text(`Time: ${Math.floor(elapsedTime / 1000)} seconds`, 150, 380);
+    isDrawing = false;
+    
+    textSize(32);
+    fill(0);
+    image(goodjob, 450, 160, 200, 150);
+    image(restart, 470, 320, 150, 100);
+    image(cleanDish, 65, 80, 320, 290);
+    
+  }
+  else if (redCounter >=0.4* 140){
+  
+    textSize(20);
+    strokeWeight(0);
+    fill(255);
+    isTiming=false;
+    text(`Time: ${Math.floor(elapsedTime / 1000)} seconds`, 150, 380);
+   image(dishFoam, 0, 0, 800, 400);
+   image(DishOhNo, 450, 150, 190,190);
+   image(restart, 470, 320, 150, 100);
+   
+  }
+ 
+  // if(mouseIsPressed==true&& mouseX>=0&&mouseX<=50&&mouseY>=90&&mouseY<=150){
+  //   selectgame();
+  // }
+  if(mouseIsPressed==true&& mouseX>=0&&mouseX<=50&&mouseY>=0&&mouseY<=70){
+   selectgame();
+   elapsedTime=0;
+   isTiming=false;
+   cursorImage.src = 'images/hand.png';
+ 
+   
+ }
+
+ if (mouseIsPressed==true&& mouseX>=370 &&mouseX<=570 &&mouseY>=220&&mouseY<=420){
+  cursorImage.src = 'images/hand.png';
+  redCounter=0;
+  greenCounter=0;
+  elapsedTime=0;
+}
   }
  
  function homepage(){
@@ -715,10 +724,10 @@ function restartRecipe() {
   function pizzapizza(){
    screen=4;
  }
- function washing(){
-   screen=5;
-   cursorImage.src = 'images/sponge.png';
- }
+//  function washing(){
+//    screen=5;
+  
+//  }
 
  
  
