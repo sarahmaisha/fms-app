@@ -1,6 +1,5 @@
 
 const cursorImage = new Image();
-cursorImage.src = 'images/hand.png';
 cursorImage.width = 40;
 cursorImage.height = 40;
 cursorImage.style.position = 'absolute';
@@ -140,6 +139,7 @@ images.push({img: veggies6, initialX: 300, initialY: 200, x: 300, y: 200,
 
 
 function setup() {
+ 
  createCanvas(800, 400);
  startTime = millis();
  strokeWeight(0);
@@ -160,11 +160,11 @@ function setup() {
   rectLocked.push(false);
 }
 //recipe restart button
-restartButton = createImg('images/restart.png', 'restart');
-restartButton.position(230, 250);
-restartButton.size(80, 50);
-restartButton.mousePressed(restartRecipe);
-restartButton.hide();
+// restartButton = createImg('images/restart.png', 'restart');
+// restartButton.position(230, 250);
+// restartButton.size(80, 50);
+// restartButton.mousePressed(restartRecipe);
+// restartButton.hide();
 
   rectMode(RADIUS);
   //strokeWeight(2);
@@ -187,10 +187,9 @@ function draw(){
  else if (screen==4){
    cutPizza();
  }
- else  {
-  
-  strokeWeight(0);
+ else if(screen==5) {
   cursorImage.src = 'images/sponge.png';
+  strokeWeight(0);
   noFill();
   background(washDish3);
   textSize(20);
@@ -198,7 +197,7 @@ function draw(){
   text(`Time: ${Math.floor(elapsedTime / 1000)} seconds`, 150, 380);
   
   if (!isTiming&&(greenCounter <= 0.95 * 125||redCounter <=0.4* 140)) {
-    
+    cursorImage.src = 'images/sponge.png';
     startTime = millis() - elapsedTime;
     isTiming = true;
   }
@@ -212,11 +211,13 @@ function draw(){
   const redMargin = 140;
 
   if (distance <= greenMargin) {
+    cursorImage.src = 'images/sponge.png';
     strokeWeight(20);
     stroke('blue'); // Set the line green
     greenCounter++;
   }
  else if (distance > redMargin) {
+  cursorImage.src = 'images/sponge.png';
   strokeWeight(20);
   stroke('red');
   redCounter++;
@@ -262,6 +263,8 @@ function draw(){
    selectgame();
    elapsedTime=0;
    isTiming=false;
+   cursorImage.src = 'images/hand.png';
+   
  }
 
  if (mouseIsPressed==true&& mouseX>=370 &&mouseX<=570 &&mouseY>=220&&mouseY<=420){
@@ -371,17 +374,17 @@ function draw(){
 //  }
   }
 
- function settingsscreen(){
-  cursorImage.src = 'images/hand.png';
-    background('wheat');
- textSize(50);
- fill('maroon');
- image(title,330,100,200,200);
- image(returnToMenu, 640,340,150,50);
- if(mouseIsPressed==true&& mouseX>=565&&mouseX<=790&&mouseY>=315&&mouseY<=365){
-   homepage();
- }
- }
+//  function settingsscreen(){
+//   cursorImage.src = 'images/hand.png';
+//     background('wheat');
+//  textSize(50);
+//  fill('maroon');
+//  image(title,330,100,200,200);
+//  image(returnToMenu, 640,340,150,50);
+//  if(mouseIsPressed==true&& mouseX>=565&&mouseX<=790&&mouseY>=315&&mouseY<=365){
+//    homepage();
+//  }
+//  }
   function selectscreen(){
     cursorImage.src = 'images/hand.png';
  background('wheat');
@@ -408,18 +411,20 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
  image(washTheDishes,510,220,180,60);
  if(mouseIsPressed==true&& mouseX>=510&&mouseX<=730&&mouseY>=220&&mouseY<=280){
    washing();
+   cursorImage.src = 'images/sponge.png';
  } 
 
 
   image(returnToMenu,10,340,140,50);
  if(mouseIsPressed==true&& mouseX>=10&&mouseX<=190&&mouseY>=340&&mouseY<=390){
    homepage();
+   cursorImage.src = 'images/hand.png';
  }
   
  }
  function veggies() {
-  
   cursorImage.src = 'images/hand.png';
+  
   strokeWeight(0);
   background(veggiesscreen);
     // ...
@@ -569,6 +574,7 @@ allCorrect = false;
 gameCompleted = false;
 isTiming = false;
 elapsedTime = 0;
+cursorImage.src = 'images/hand.png';
 
 // Reset the vegetable positions
 for (let i = 0; i < images.length; i++) {
@@ -586,7 +592,7 @@ for (let i = 0; i < images.length; i++) {
  
  function cutPizza(){
 
- 
+  cursorImage.src = 'images/hand.png';
   background(recipeBG);
   textSize(15);
   fill(0, 0, 0);
@@ -672,10 +678,12 @@ for (let i = 0; i < images.length; i++) {
    selectgame();
    elapsedTime=0;
    isTiming=false;
+   cursorImage.src = 'images/hand.png';
  }
 }
 
 function restartRecipe() {
+  cursorImage.src = 'images/hand.png';
   correctSteps = 0;
   elapsedTime=0;
   for (let i = 0; i < rectangles.length; i++) {
@@ -686,8 +694,7 @@ function restartRecipe() {
 
 
   function dishes(){
- 
- }
+  }
  
  function homepage(){
    screen=0;
@@ -706,6 +713,7 @@ function restartRecipe() {
  }
  function washing(){
    screen=5;
+   cursorImage.src = 'images/sponge.png';
  }
 
  
