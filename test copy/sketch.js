@@ -1,4 +1,7 @@
-
+cursorImage.src = 'images/hand.png';
+if (screen==5){
+  cursorImage.src = 'images/sponge.png';
+}
 const cursorImage = new Image();
 cursorImage.width = 40;
 cursorImage.height = 40;
@@ -410,8 +413,9 @@ if(mouseIsPressed==true&& mouseX>=320&&mouseX<=490&&mouseY>=220&&mouseY<=280){
  fill('wheat');
  image(washTheDishes,510,220,180,60);
  if(mouseIsPressed==true&& mouseX>=510&&mouseX<=730&&mouseY>=220&&mouseY<=280){
-   washing();
-   cursorImage.src = 'images/sponge.png';
+  cursorImage.src = 'images/sponge.png';
+  washing();
+   
  } 
 
 
